@@ -1,7 +1,11 @@
 from django.shortcuts import render
+from .models import Brand, Product, Shade 
 
 # Create your views here.
 
 def home(request):
-    return render(request, 'home.html')
+    
+    brands = Brand.objects.all()
+    return render(request, 'home.html', {'brands':brands})
+
 
