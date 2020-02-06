@@ -19,5 +19,7 @@ from .core import views
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('product/list/<pk>', views.get_products, name='get_products'),
+    path('shade/list/<pk>', views.get_shades, name='get_shades'),
     path('admin/', admin.site.urls),
 ]

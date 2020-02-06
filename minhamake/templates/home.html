@@ -39,7 +39,6 @@
 		<section class="hero-section set-bg" data-setbg="{% static "img/bg.jpg" %}" >
 			<div class="container">
 				<div class="hero-slider owl-carousel">
-					<!-- slider item -->
 					<div class="hs-item">
 						<div class="hs-content text-white">
 							<h2>Seja única.<br>Seja linda.</h2>
@@ -60,30 +59,32 @@
 					<h2>Encontre a base perfeita para você</h2>
 				</div>
 				<div class="row">
-					<!-- service -->
-					<div class="col-lg-6 col-md-6 service text-white">
+					<div class="col-lg-4 col-md-6 service text-white">
 						<i class="flaticon-016-woman"></i>
 						<h2>Marca: </h2>
 						<p>Selecione a marca de base que você normalmente utiliza</p>
-						<select class="js-search-brand" name="brand" style="width: 75%">
+						<select class="js-search" name="brand" style="width: 75%">
 							{% for brand in brands %}
 								<option value="{{brand.id}}"> {{brand.name}}</option>
 							{% endfor%}
 						</select>
 					</div>
-					<!-- service -->
+
 					<div class="col-lg-4 col-md-6 service text-white">
 						<i class="flaticon-017-soap"></i>
 						<h2>Produto: </h2>
 						<p>Selecione o produto que você normalmente utiliza</p>
+						<select class="js-search" name="product" style="width: 75%">
+						</select>
 					</div>
-					<!-- service -->
+
 					<div class="col-lg-4 col-md-6 service text-white">
 						<i class="flaticon-009-makeup-5"></i>
 						<h2>Cor:</h2>
 						<p>Selecione o tom do produto selecionado</p>
+						<select class="js-search" name="shade" style="width: 75%">
+						</select>
 					</div>
-					<!-- service -->
 				</div>
 			</div>
 		</section>
@@ -99,11 +100,13 @@
 
 		<!-- CDN Select2-->
 		<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
-
+		<script src="{% static "js/ajax/select-product.js"%}"></script>
+		<script src="{% static "js/ajax/select-shade.js"%}"></script>		
 		<script> 	
 			$(document).ready(function() {
-    			$('.js-search-brand').select2();
+    			$('.js-search').select2();
 			});
+
 		</script>
     </body>
 </html>
