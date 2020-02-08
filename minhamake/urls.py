@@ -19,7 +19,8 @@ from .core import views
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('product/list/<pk>', views.get_products, name='get_products'),
-    path('shade/list/<pk>', views.get_shades, name='get_shades'),
+    path('brand/list', views.get_brands, name='get_brands'),
+    path('product/list/<brand_id>', views.get_products, name='get_products'),
+    path('shade/list/<product_id>', views.get_shades, name='get_shades'),
     path('admin/', admin.site.urls),
 ]

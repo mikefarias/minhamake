@@ -9,22 +9,30 @@ from .models import Brand, Product, Shade
 
 def home(request):
     
-    brands = Brand.objects.all()
-    return render(request, 'home.html', {'brands':brands})
+    return render(request, 'home.html')
 
 
-def get_products(request, pk):
+def get_brands(request):
     
-    products = Product.objects.filter(brand=pk)
+    brands = Brand.objects.all()
+    brands_dict = {}
+    for brand in brands:
+        brands_dict[brand.id] = brand.name
+    return HttpResponse(json.dumps(brands_dict), content_type="application/json")
+
+
+def get_products(request, brand_id):
+    
+    products = Product.objects.filter(brand=brand_id)
     products_dict = {}
     for product in products:
         products_dict[product.id] = product.name
     return HttpResponse(json.dumps(products_dict), content_type="application/json")
 
 
-def get_shades(request, pk):
+def get_shades(request, product_id):
     
-    shades = Shade.objects.filter(brand=pk)
+    shades = Shade.objects.filter(product=product_id)
     shades_dict = {}
     for shade in shades:
         shades_dict[shade.id] = shade.name

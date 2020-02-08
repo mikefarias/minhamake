@@ -38,7 +38,7 @@ class Product(models.Model):
 
     name = models.CharField(max_length=50)
     ative = models.BooleanField
-    shade = models.ForeignKey(Shade, on_delete=models.PROTECT)
+    shade = models.ManyToManyField(Shade)
     brand = models.ForeignKey(Brand, on_delete=models.PROTECT)
     image = models.ImageField
 
