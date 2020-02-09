@@ -59,4 +59,6 @@ static_collected
 # Exclude machine-specific vs code settings
 .vscode/settings.json
 
+/*.cpython-36.pyc
 
+minhamake/core/migrations
