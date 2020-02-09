@@ -7,7 +7,7 @@ $(function(){
                     type: "GET",
                     success: function(data){
                         brand.empty();
-                        brand.prepend('<option value="Not selected" selected disabled>Selecione o produto...</option>');                        
+                        brand.prepend('<option value="Not selected" selected disabled>Selecione a marca...</option>');                        
                         $.each(data, function(key, value){
                             brand.append('<option value="' + key + '">' + value + '</option>');
                         });
