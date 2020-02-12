@@ -44,3 +44,9 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class SelectedProduct(models.Model): 
+
+    product = models.ForeignKey(Product, on_delete=models.PROTECT)
+    shade = models.ForeignKey(Shade, on_delete=models.PROTECT)

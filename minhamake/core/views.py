@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 import json
 
-from .models import Brand, Product, Shade 
+from .models import Brand, Product, Shade, SelectedProduct
 
 
 # Create your views here.
@@ -37,3 +37,20 @@ def get_shades(request, product_id):
     for shade in shades:
         shades_dict[shade.id] = shade.name
     return HttpResponse(json.dumps(shades_dict), content_type="application/json")
+
+
+def add_product(request):
+
+    product_id = request.POST.get('product', None)
+    product = get_object_or_404(Product, pk=product_id)
+
+    shade_id = request.POST.get('shade', None)
+    shade = get_object_or_404(Shade, pk=shade_id)
+
+    select = SelectedProduct()
+    select.usuario = 1
+    select.product = product
+    select.shade = shade 
+    select.save()
+
+    return HttpResponse(json.dumps(''), content_type="application/json")
