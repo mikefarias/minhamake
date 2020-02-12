@@ -47,10 +47,9 @@ def add_product(request):
     shade_id = request.POST.get('shade', None)
     shade = get_object_or_404(Shade, pk=shade_id)
 
-    select = SelectedProduct()
-    select.usuario = 1
-    select.product = product
-    select.shade = shade 
-    select.save()
+    selected_product = SelectedProduct.objects.create_selected_product(product, shade)
+    
+    print(product, shade)
+    print(selected_product)
 
     return HttpResponse(json.dumps(''), content_type="application/json")

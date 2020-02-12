@@ -45,8 +45,19 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+class SelectedProductManager(models.Manager): 
+    
+    def create_selected_product(self, product, shade):
+        selected_product = self.create(product=product, shade=shade)
+        return selected_product
+
 
 class SelectedProduct(models.Model): 
 
+    usuario = models.IntegerField
+    ative = models.BooleanField
+    
     product = models.ForeignKey(Product, on_delete=models.PROTECT)
     shade = models.ForeignKey(Shade, on_delete=models.PROTECT)
+
+    objects = SelectedProductManager()
