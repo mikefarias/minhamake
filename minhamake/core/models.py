@@ -54,9 +54,6 @@ class SelectedProductManager(models.Manager):
 
 class SelectedProduct(models.Model): 
 
-    usuario = models.IntegerField
-    ative = models.BooleanField
-    
     product = models.ForeignKey(Product, on_delete=models.PROTECT)
     shade = models.ForeignKey(Shade, on_delete=models.PROTECT)
 
