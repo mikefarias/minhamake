@@ -25,6 +25,7 @@ body {
 	font-family: 'Futura LT', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	font-smoothing: antialiased;
+	background: #e22b63;
 }
 
 h1,
@@ -587,10 +588,6 @@ ol {
 /*---------------------
   Services Section
 -----------------------*/
-
-.services-section {
-	background-color: #e22b63;
-}
 
 .services-section .container {
 	margin-bottom: -65px;
