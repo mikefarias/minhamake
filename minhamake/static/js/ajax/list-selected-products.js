@@ -57,6 +57,9 @@ function addSelectedProduct(){
                             <td>${item["name_brand"]||""}</td>
                             <td>${item["name_product"]||""}</td>
                             <td>${item["name_shade"]||""}</td>
+                            <td>
+                                <a href="{% url 'del_selected' pk=excursao.id %}" class="btn btn-danger"> Remove </a>
+                            </td>
                             <td></td>
                         </tr>`
                     );
