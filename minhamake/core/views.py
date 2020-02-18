@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 import json
 
 from .models import Brand, Product, Shade, SelectedProduct
@@ -47,9 +47,14 @@ def add_product(request):
     shade_id = request.POST.get('shade', None)
     shade = get_object_or_404(Shade, pk=shade_id)
 
-    selected_product = SelectedProduct.objects.create_selected_product(product, shade)
+    SelectedProduct.objects.create_selected_product(product, shade)
     
-    print(product, shade)
-    print(selected_product)
-
-    return HttpResponse(json.dumps(''), content_type="application/json")
+    selected_products = SelectedProduct.objects.all()
+    data = []
+    if(selected_products):
+        for selected_product in selected_products:
+            data.append({'id_product': selected_product.product.id, 'name_product': selected_product.product.name, 
+                          'id_brand': selected_product.product.brand.id, 'name_brand':selected_product.product.brand.name, 
+                          'id_shade': selected_product.shade.id, 'name_shade': selected_product.shade.name })
+    # return JsonResponse({'instance': data})            
+    return HttpResponse(json.dumps({'instance': data}), content_type="application/json")

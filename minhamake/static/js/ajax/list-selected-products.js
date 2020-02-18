@@ -41,6 +41,31 @@ function addSelectedProduct(){
                 product: $('select[name=product]').val(), 
                 shade: $('select[name=shade]').val()
             },
+            success: function (response) {
+                // on successfull creating object
+                // 1. clear the form.
+                $("#selected").trigger('reset');
+         
+                // 2. focus to nickname input 
+                $("#id_nick_name").focus();
+    
+                // display the newly friend to table.
+                console.log(response);
+                response['instance'].forEach((item) => {
+                    $("#selected").append(
+                        `<tr>
+                            <td>${item["name_brand"]||""}</td>
+                            <td>${item["name_product"]||""}</td>
+                            <td>${item["name_shade"]||""}</td>
+                            <td></td>
+                        </tr>`
+                    );
+                });
+            },
+            error: function (response) {
+                // alert the error if any error occured
+                alert(response["responseJSON"]["error"]);
+            }          
         })
     }
 };
