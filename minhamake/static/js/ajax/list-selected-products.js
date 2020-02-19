@@ -32,14 +32,14 @@ function addSelectedProduct(){
     var product = $('select[name=product]');
     var shade = $('select[name=shade]');
     
-    request_url = "user/product/add"
+    request_url = "user/selected/add"
     if(product){
         $.ajax({
             type: 'POST', 
             url: request_url,
             data: {
-                product: $('select[name=product]').val(), 
-                shade: $('select[name=shade]').val()
+                product: product.val(), 
+                shade: shade.val()
             },
             success: function (response) {
                 // on successfull creating object
@@ -51,14 +51,16 @@ function addSelectedProduct(){
     
                 // display the newly friend to table.
                 console.log(response);
+
                 response['instance'].forEach((item) => {
+                    pk = item.id_product;
                     $("#selected").append(
                         `<tr>
                             <td>${item["name_brand"]||""}</td>
                             <td>${item["name_product"]||""}</td>
                             <td>${item["name_shade"]||""}</td>
                             <td>
-                                <a href="{% url 'del_selected' pk=excursao.id %}" class="btn btn-danger"> Remove </a>
+                                <a href="user/selected/del/${item.id_product}" class="btn btn-danger"> Remove </a>
                             </td>
                             <td></td>
                         </tr>`

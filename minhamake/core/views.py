@@ -39,7 +39,7 @@ def get_shades(request, product_id):
     return HttpResponse(json.dumps(shades_dict), content_type="application/json")
 
 
-def add_product(request):
+def add_selected(request):
 
     product_id = request.POST.get('product', None)
     product = get_object_or_404(Product, pk=product_id)
@@ -48,13 +48,28 @@ def add_product(request):
     shade = get_object_or_404(Shade, pk=shade_id)
 
     SelectedProduct.objects.create_selected_product(product, shade)
+
+    data = load_selected()
     
+    return HttpResponse(json.dumps({'instance': data}), content_type="application/json")
+
+def del_selected(request, pk):
+
+    selected_product = get_object_or_404(SelectedProduct, product=pk)
+    selected_product.delete()
+
+    data = load_selected()
+    return HttpResponse(json.dumps({'instance': data}), content_type="application/json")
+
+
+def load_selected():
+
     selected_products = SelectedProduct.objects.all()
     data = []
     if(selected_products):
         for selected_product in selected_products:
             data.append({'id_product': selected_product.product.id, 'name_product': selected_product.product.name, 
                           'id_brand': selected_product.product.brand.id, 'name_brand':selected_product.product.brand.name, 
-                          'id_shade': selected_product.shade.id, 'name_shade': selected_product.shade.name })
-    # return JsonResponse({'instance': data})            
-    return HttpResponse(json.dumps({'instance': data}), content_type="application/json")
+                          'id_shade': selected_product.shade.id, 'name_shade': selected_product.shade.name })          
+    return data
+
