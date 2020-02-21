@@ -19,6 +19,11 @@ function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 }
+
+function deleteItem(event) {
+    console.log(event);
+}
+
 $.ajaxSetup({
     beforeSend: function(xhr, settings) {
         if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
@@ -28,6 +33,56 @@ $.ajaxSetup({
 });
 
 function addSelectedProduct(){
+
+    var product = $('select[name=product]');
+    var shade = $('select[name=shade]');
+    
+    request_url = "user/selected/add"
+    if(product){
+        $.ajax({
+            type: 'POST', 
+            url: request_url,
+            data: {
+                product: product.val(), 
+                shade: shade.val()
+            },
+            success: function (response) {
+                // on successfull creating object
+                // 1. clear the form.
+                $("#selected").trigger('reset');
+         
+                // 2. focus to nickname input 
+                $("#id_nick_name").focus();
+    
+                // display the newly friend to table.
+                console.log(response);
+
+                response['instance'].forEach((item) => {
+                    pk = item.id_product;
+                    $("#selected").append(
+                        `<tr data-id=${item.id_product}>
+                            <td>${item["name_brand"]||""}</td>
+                            <td>${item["name_product"]||""}</td>
+                            <td>${item["name_shade"]||""}</td>
+                            <td>
+                                <button href="user/selected/del/${item.id_product}" class="btn btn-danger" onclick="deleteItem(${pk})"> Remove </button>
+                            </td>
+                            <td></td>
+                        </tr>`
+                    );
+                });
+
+
+            },
+            error: function (response) {
+                // alert the error if any error occured
+                alert(response["responseJSON"]["error"]);
+            }          
+        })
+    }
+};
+
+function removeSelectedProduct(){
 
     var product = $('select[name=product]');
     var shade = $('select[name=shade]');

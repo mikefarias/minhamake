@@ -70,6 +70,7 @@ def load_selected():
         for selected_product in selected_products:
             data.append({'id_product': selected_product.product.id, 'name_product': selected_product.product.name, 
                           'id_brand': selected_product.product.brand.id, 'name_brand':selected_product.product.brand.name, 
-                          'id_shade': selected_product.shade.id, 'name_shade': selected_product.shade.name })          
+                          'id_shade': selected_product.shade.id, 'name_shade': selected_product.shade.name, 
+                          'id_selected':selected_product.id})          
     return data
 
