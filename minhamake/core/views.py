@@ -55,7 +55,7 @@ def add_selected(request):
 
 def del_selected(request, pk):
 
-    selected_product = get_object_or_404(SelectedProduct, product=pk)
+    selected_product = get_object_or_404(SelectedProduct, id=pk)
     selected_product.delete()
 
     data = load_selected()

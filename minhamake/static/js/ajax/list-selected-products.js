@@ -20,10 +20,6 @@ function csrfSafeMethod(method) {
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 }
 
-function deleteItem(event) {
-    console.log(event);
-}
-
 $.ajaxSetup({
     beforeSend: function(xhr, settings) {
         if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
@@ -36,7 +32,8 @@ function addSelectedProduct(){
 
     var product = $('select[name=product]');
     var shade = $('select[name=shade]');
-    
+    var selected = $('tbody[id=selected]');
+
     request_url = "user/selected/add"
     if(product){
         $.ajax({
@@ -47,75 +44,15 @@ function addSelectedProduct(){
                 shade: shade.val()
             },
             success: function (response) {
-                // on successfull creating object
-                // 1. clear the form.
-                $("#selected").trigger('reset');
-         
-                // 2. focus to nickname input 
-                $("#id_nick_name").focus();
-    
-                // display the newly friend to table.
-                console.log(response);
-
+                selected.empty();        
                 response['instance'].forEach((item) => {
-                    pk = item.id_product;
-                    $("#selected").append(
-                        `<tr data-id=${item.id_product}>
-                            <td>${item["name_brand"]||""}</td>
-                            <td>${item["name_product"]||""}</td>
-                            <td>${item["name_shade"]||""}</td>
-                            <td>
-                                <button href="user/selected/del/${item.id_product}" class="btn btn-danger" onclick="deleteItem(${pk})"> Remove </button>
-                            </td>
-                            <td></td>
-                        </tr>`
-                    );
-                });
-
-
-            },
-            error: function (response) {
-                // alert the error if any error occured
-                alert(response["responseJSON"]["error"]);
-            }          
-        })
-    }
-};
-
-function removeSelectedProduct(){
-
-    var product = $('select[name=product]');
-    var shade = $('select[name=shade]');
-    
-    request_url = "user/selected/add"
-    if(product){
-        $.ajax({
-            type: 'POST', 
-            url: request_url,
-            data: {
-                product: product.val(), 
-                shade: shade.val()
-            },
-            success: function (response) {
-                // on successfull creating object
-                // 1. clear the form.
-                $("#selected").trigger('reset');
-         
-                // 2. focus to nickname input 
-                $("#id_nick_name").focus();
-    
-                // display the newly friend to table.
-                console.log(response);
-
-                response['instance'].forEach((item) => {
-                    pk = item.id_product;
                     $("#selected").append(
                         `<tr>
                             <td>${item["name_brand"]||""}</td>
                             <td>${item["name_product"]||""}</td>
                             <td>${item["name_shade"]||""}</td>
                             <td>
-                                <a href="user/selected/del/${item.id_product}" class="btn btn-danger"> Remove </a>
+                                <button href="user/selected/del" class="btn btn-danger" onclick="removeSelectedProduct(${item.id_selected})"> Remove </button>
                             </td>
                             <td></td>
                         </tr>`
@@ -129,3 +66,38 @@ function removeSelectedProduct(){
         })
     }
 };
+
+function removeSelectedProduct(pk){
+
+    var selected = $('tbody[id=selected]');
+    request_url = "user/selected/del/" + pk;
+    $.ajax({
+        type: 'POST', 
+        url: request_url,
+
+        success: function (response) {
+            // on successfull creating object
+            // 1. clear the form.
+            $("#selected").trigger('reset');
+            selected.empty();
+            response['instance'].forEach((item) => {
+                $("#selected").append(
+                    `<tr>
+                        <td>${item["name_brand"]||""}</td>
+                        <td>${item["name_product"]||""}</td>
+                        <td>${item["name_shade"]||""}</td>
+                        <td>
+                            <button class="btn btn-danger" onclick="removeSelectedProduct(${item.id_selected})"> Remove </button>
+                        </td>
+                        <td></td>
+                    </tr>`
+                );
+            });
+        },
+        error: function (response) {
+            // alert the error if any error occured
+            alert(response["responseJSON"]["error"]);
+        }          
+    })
+};
+
