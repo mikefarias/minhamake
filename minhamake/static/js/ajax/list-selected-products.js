@@ -52,7 +52,7 @@ function addSelectedProduct(){
                             <td>${item["name_product"]||""}</td>
                             <td>${item["name_shade"]||""}</td>
                             <td>
-                                <button href="user/selected/del" class="btn btn-danger" onclick="removeSelectedProduct(${item.id_selected})"> Remove </button>
+                                <button href="user/selected/del" class="btn fa fa-trash-o fa-fw" onclick="removeSelectedProduct(${item.id_selected})"></button>
                             </td>
                             <td></td>
                         </tr>`
@@ -87,7 +87,7 @@ function removeSelectedProduct(pk){
                         <td>${item["name_product"]||""}</td>
                         <td>${item["name_shade"]||""}</td>
                         <td>
-                            <button class="btn btn-danger" onclick="removeSelectedProduct(${item.id_selected})"> Remove </button>
+                            <button class="btn fa fa-trash-o fa-fw" onclick="removeSelectedProduct(${item.id_selected})"></button>
                         </td>
                         <td></td>
                     </tr>`

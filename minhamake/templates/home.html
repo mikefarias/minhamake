@@ -64,13 +64,11 @@
 							<select class="js-search" name="shade" style="width: 75%">
 							<option value="0" selected> Selecione a cor </option>
 						</select>
-						<button type="button" onclick="addSelectedProduct()" class="btn btn-success btn-add btn-circle">
-							<span class="fa fa-add"> </span> 
-							+
+						<button type="button" onclick="addSelectedProduct()">
+							<span class="fa fa-plus-circle"> </span> 
 						</button>
 					</div>
-				</div><!--end row-->
-				<div class='row'>
+
 					<div class="col-lg-3 col-md-6 service text-white">
 						{% if data|length == 0 %}
 							<table class="table table-borderless">
