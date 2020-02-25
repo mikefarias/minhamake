@@ -52,7 +52,7 @@ function addSelectedProduct(){
                             <td>${item["name_product"]||""}</td>
                             <td>${item["name_shade"]||""}</td>
                             <td>
-                                <button href="user/selected/del" class="btn fa fa-trash-o fa-fw" onclick="removeSelectedProduct(${item.id_selected})"></button>
+                                <button class="btn fa fa-trash-o fa-fw" onclick="removeSelectedProduct(${item.id_selected})"></button>
                             </td>
                             <td></td>
                         </tr>`
@@ -70,11 +70,13 @@ function addSelectedProduct(){
 function removeSelectedProduct(pk){
 
     var selected = $('tbody[id=selected]');
-    request_url = "user/selected/del/" + pk;
+    request_url = "user/selected/del";
     $.ajax({
         type: 'POST', 
         url: request_url,
-
+        data: {
+            id_selected:pk
+        },
         success: function (response) {
             // on successfull creating object
             // 1. clear the form.
@@ -100,4 +102,3 @@ function removeSelectedProduct(pk){
         }          
     })
 };
-

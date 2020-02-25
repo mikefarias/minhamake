@@ -41,23 +41,19 @@ def get_shades(request, product_id):
 
 def add_selected(request):
 
-    product_id = request.POST.get('product', None)
-    product = get_object_or_404(Product, pk=product_id)
-
-    shade_id = request.POST.get('shade', None)
-    shade = get_object_or_404(Shade, pk=shade_id)
-
+    id_product = request.POST.get('product', None)
+    product = get_object_or_404(Product, pk=id_product)
+    id_shade = request.POST.get('shade', None)
+    shade = get_object_or_404(Shade, pk=id_shade)
     SelectedProduct.objects.create_selected_product(product, shade)
-
     data = load_selected()
-    
     return HttpResponse(json.dumps({'instance': data}), content_type="application/json")
 
-def del_selected(request, pk):
+def del_selected(request):
 
-    selected_product = get_object_or_404(SelectedProduct, id=pk)
+    id_selected = request.POST.get('id_selected', None)
+    selected_product = get_object_or_404(SelectedProduct, id=id_selected)
     selected_product.delete()
-
     data = load_selected()
     return HttpResponse(json.dumps({'instance': data}), content_type="application/json")
 
