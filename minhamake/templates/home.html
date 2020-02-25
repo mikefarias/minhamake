@@ -42,7 +42,7 @@
 					<h2>Encontre a base perfeita para você</h2>
 				</div>
 				<div class="row">
-					<div class="col-lg-3 col-md-6 service text-white">
+					<div class="col-lg-3 service text-white">
 						<i class="flaticon-016-woman"></i>
 						<h2>Marca: </h2>
 						<select class="js-search" name="brand" style="width: 75%">
@@ -50,7 +50,7 @@
 						</select>
 					</div>
 
-					<div class="col-lg-3 col-md-6 service text-white">
+					<div class="col-lg-3 service text-white">
 							<i class="flaticon-017-soap"></i>
 						<h2>Produto: </h2>
 						<select class="js-search" name="product" style="width: 75%">
@@ -58,7 +58,7 @@
 						</select>
 					</div>
 
-					<div class="col-lg-3 col-md-6 service text-white">
+					<div class="col-lg-3 service text-white">
 						<i class="flaticon-009-makeup-5"></i>
 						<h2>Cor:</h2>
 							<select class="js-search" name="shade" style="width: 75%">
@@ -69,21 +69,14 @@
 						</button>
 					</div>
 
-					<div class="col-lg-3 col-md-6 service text-white">
-						{% if data|length == 0 %}
-							<table class="table table-borderless">
-								<thead class="thead">
-									<tr>
-										<th>Marca</th>
-										<th>Produto</th>
-										<th>Cor</th>
-										<th></th>
-									</tr>
-								</thead>
-								<tbody id="selected"></tbody>
-							</table>
-						{% endif %}
-					</div> 
+					<div class="col-lg-5 service text-white">
+						<i class="flaticon-009-makeup-5"></i>
+						<h2>Selecionados:</h2>
+						<select id="teste" class="js-search" multiple="multiple" style="width: 75%">
+						
+						</select>					
+					</div>
+				
 				</div><!--end row-->
             </div>
 		</section>

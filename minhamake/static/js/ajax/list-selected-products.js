@@ -43,7 +43,7 @@ function addSelectedProduct(){
                 shade: shade.val()
             },
             success: function (response) {
-                loadSelected(response);        
+                loadSelected2(response);        
             },
             error: function (response) {
                 // alert the error if any error occured
@@ -63,7 +63,7 @@ function removeSelectedProduct(pk){
             id_selected:pk
         },
         success: function (response) {
-            loadSelected(response);        
+            loadSelected2(response);        
         },
         error: function (response) {
             // alert the error if any error occured
@@ -72,22 +72,15 @@ function removeSelectedProduct(pk){
     })
 };
 
+function loadSelected2(response){
 
-function loadSelected(response){
-
-    var selected = $('tbody[id=selected]');
+    var selected = $('select[id=teste]');
     selected.empty();
     response['instance'].forEach((item) => {
-        $("#selected").append(
-            `<tr>
-                <td>${item["name_brand"]||""}</td>
-                <td>${item["name_product"]||""}</td>
-                <td>${item["name_shade"]||""}</td>
-                <td>
-                    <button class="btn fa fa-trash-o fa-fw" onclick="removeSelectedProduct(${item.id_selected})"></button>
-                </td>
-                <td></td>
-            </tr>`
+        $("#teste").append(
+           `<option selected="selected" value="${item.id_selected}">
+                ${item["name_brand"] + " - " + item["name_product"] + " - " + item["name_shade"] || ""}</option> 
+           `
         );
     });
 }
