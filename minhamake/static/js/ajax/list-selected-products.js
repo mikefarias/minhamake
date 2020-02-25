@@ -35,7 +35,7 @@ function addSelectedProduct(){
     var selected = $('tbody[id=selected]');
 
     request_url = "user/selected/add"
-    if(product){
+    if(product && shade){
         $.ajax({
             type: 'POST', 
             url: request_url,
